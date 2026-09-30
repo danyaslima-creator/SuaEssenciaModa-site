@@ -1,0 +1,8 @@
+{
+  "git.enableSmartCommit": true,
+  "git.smartCommitChanges": "all",
+  "git.postCommitCommand": "sync",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "files.autoSave": "afterDelay"
+}
