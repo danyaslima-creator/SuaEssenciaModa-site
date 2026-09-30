@@ -1,0 +1,7 @@
+# Arquivos do sistema que não vão para o site
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.bak
+~$*
