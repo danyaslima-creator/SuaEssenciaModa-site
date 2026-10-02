@@ -143,6 +143,12 @@
     background:var(--sand);
     border-bottom:1px solid var(--line);
   }
+  .catnav::after{
+    content:""; position:absolute; top:0; right:0; bottom:1px; width:48px;
+    background:linear-gradient(to right, transparent, var(--sand) 65%);
+    pointer-events:none; opacity:1; transition:opacity .25s ease;
+  }
+  .catnav.at-end::after{opacity:0;}
   .catnav-scroll{
     display:flex; gap:1.8rem; overflow-x:auto; padding:.9rem clamp(1.25rem,4vw,3rem);
     max-width:1180px; margin:0 auto;
@@ -653,6 +659,19 @@
     });
   }
 
+  function wireCatnavFade(){
+    var scrollEl = document.getElementById("catnav");
+    var navEl = document.querySelector(".catnav");
+    if (!scrollEl || !navEl) return;
+    function update(){
+      var atEnd = scrollEl.scrollLeft + scrollEl.clientWidth >= scrollEl.scrollWidth - 2;
+      navEl.classList.toggle("at-end", atEnd);
+    }
+    scrollEl.addEventListener("scroll", update, {passive:true});
+    window.addEventListener("resize", update);
+    update();
+  }
+
   build();
   wireContactLinks();
   wireMenuButton();
@@ -660,6 +679,7 @@
   var heroPhotoEl = document.getElementById("hero-photo");
   if (heroPhotoEl) { heroPhotoEl.src = HERO_BANNER_DATA_URI; heroPhotoEl.hidden = false; }
   wireScrollspy();
+  wireCatnavFade();
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 
   try {
