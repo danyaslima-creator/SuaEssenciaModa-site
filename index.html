@@ -392,6 +392,10 @@
 
   .faixa-veludo{background:var(--wine); background-image:url('velvet.jpg'); background-size:cover; background-position:center; padding:4.5rem 2rem; text-align:center; color:#fff; display:flex; flex-direction:column; align-items:center; gap:1.1rem;}
   .faixa-veludo span{font-family:"Cormorant Garamond",serif; font-style:italic; font-size:clamp(1.6rem,3.5vw,2.4rem); line-height:1.15;}
+  .faixa-veludo-texto{max-width:36rem; margin:0; font-size:.95rem; line-height:1.65; color:rgba(255,255,255,.88);}
+  .filtro-vazio{max-width:1280px; margin:0 auto; padding:0 32px 3rem; text-align:center; display:flex; flex-direction:column; align-items:center; gap:.9rem;}
+  .filtro-vazio p{margin:0; font-family:"Cormorant Garamond",serif; font-style:italic; font-size:1.3rem; color:var(--wine);}
+  .filtro-vazio button{height:42px; padding:0 22px; background:var(--wine); color:#fff; border:0; border-radius:4px; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer;}
   .btn-seguir-veludo{height:46px; padding:0 26px; display:inline-flex; align-items:center; background:#fff; color:var(--wine); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; text-decoration:none;}
 </style>
 
@@ -652,9 +656,14 @@
 </section>
 
 <main class="catalog wrap" id="catalogo"></main>
+<div id="filtro-vazio" class="filtro-vazio" hidden>
+  <p>Nenhuma peça encontrada com esses filtros.</p>
+  <button type="button" id="btn-limpar-filtro-vazio">Limpar filtros</button>
+</div>
 
 <section class="faixa-veludo">
-  <span>Moda plus \u00e9 se sentir linda,<br>\u00e9 se sentir voc\u00ea.</span>
+  <span>Moda plus é se sentir linda,<br>é se sentir você.</span>
+  <p class="faixa-veludo-texto">Peças pensadas para valorizar o corpo real — tamanhos do 42 ao 50, tecidos leves e cortes que caem bem em qualquer ocasião. Catálogo completo, compra combinada direto no WhatsApp.</p>
   <a class="btn-seguir-veludo" href="https://www.instagram.com/suaessenciamodaplus/" target="_blank" rel="noopener">Seguir @suaessenciamodaplus</a>
 </section>
 
@@ -1069,6 +1078,8 @@
     });
     var resultado = document.getElementById("filtro-resultado");
     if (resultado) resultado.textContent = visiveis + (visiveis === 1 ? " pe\u00e7a encontrada" : " pe\u00e7as encontradas");
+    var vazio = document.getElementById("filtro-vazio");
+    if (vazio) vazio.hidden = visiveis !== 0;
     document.getElementById("catalogo").scrollIntoView({behavior: REDUCE_MOTION ? "auto" : "smooth", block: "start"});
   }
   function limparFiltro(){
@@ -1082,6 +1093,8 @@
     document.querySelectorAll(".cat-section").forEach(function(s){ s.hidden = false; });
     var resultado = document.getElementById("filtro-resultado");
     if (resultado) resultado.textContent = "";
+    var vazio = document.getElementById("filtro-vazio");
+    if (vazio) vazio.hidden = true;
   }
   function wireBusca(){
     var btnBuscar = document.querySelector(".btn-buscar");
@@ -1091,11 +1104,16 @@
     btnBuscar.onclick = function(){
       var aberto = painel.classList.toggle("aberto");
       btnBuscar.setAttribute("aria-expanded", aberto ? "true" : "false");
-      if (aberto) document.getElementById("filtro-nome").focus();
+      if (aberto){
+        painel.scrollIntoView({behavior: REDUCE_MOTION ? "auto" : "smooth", block: "nearest"});
+        if (window.innerWidth > 760) document.getElementById("filtro-nome").focus();
+      }
     };
     document.getElementById("btn-aplicar-filtro").onclick = aplicarFiltro;
     document.getElementById("btn-limpar-filtro").onclick = limparFiltro;
     document.getElementById("filtro-nome").addEventListener("keydown", function(e){ if (e.key === "Enter") aplicarFiltro(); });
+    var btnLimparVazio = document.getElementById("btn-limpar-filtro-vazio");
+    if (btnLimparVazio) btnLimparVazio.onclick = limparFiltro;
   }
   function wireBadgeSeguir(){
     var btn = document.getElementById("btn-seguir-desconto");
