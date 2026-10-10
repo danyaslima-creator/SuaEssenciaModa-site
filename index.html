@@ -321,6 +321,13 @@
     height:42px; padding:0 18px; display:inline-flex; align-items:center; gap:8px; background:#fff; color:var(--wine);
     border-radius:999px; font-size:12.5px; font-weight:500; letter-spacing:.07em; text-transform:uppercase; text-decoration:none;
   }
+  @media (max-width:760px){
+    .vinho-top{padding:12px 14px 8px; gap:6px;}
+    .logo-vinho img{height:44px;}
+    .acoes-vinho{gap:6px;}
+    .btn-buscar, .btn-atendimento-vinho{padding:0 10px; gap:0;}
+    .btn-buscar span, .btn-atendimento-vinho span{display:none;}
+  }
   .divisor-rose-vinho{max-width:1280px; margin:0 auto; padding:0 32px;}
   .divisor-rose-vinho i{display:block; height:1px; background:linear-gradient(90deg,rgba(165,127,138,0),var(--rose),rgba(165,127,138,0));}
   .barra-vinho-escuro{height:4px; background:var(--wine-deep);}
@@ -443,8 +450,9 @@
   .popover-seguir a.passo.insta{background:var(--wine); color:#fff;}
   .popover-seguir a.passo.whats{background:var(--oliva); color:#fff;}
   @media (max-width:760px){
-    .badge-seguir span{font-size:10px;}
-    .popover-seguir{right:-10px; width:15.5rem;}
+    .badge-seguir{padding:0 10px; gap:0;}
+    .badge-seguir span{display:none;}
+    .popover-seguir{right:-54px; width:15.5rem;}
   }
 </style>
 <div class="faixa-utilitaria">
@@ -455,7 +463,7 @@
     <div style="display:flex; align-items:center; gap:10px;">
       <button class="btn-buscar" type="button" aria-label="Buscar peças">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
-        Buscar
+        <span>Buscar</span>
       </button>
     </div>
     <a class="logo-vinho" href="#" aria-label="Sua Essência – início"><img src="logo-white.png" alt="Sua Essência Moda Plus Size"></a>
@@ -482,7 +490,7 @@
       </div>
       <a class="btn-atendimento-vinho" id="cta-top" href="#" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"></path></svg>
-        Atendimento
+        <span>Atendimento</span>
       </a>
     </div>
   </div>
