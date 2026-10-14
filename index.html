@@ -190,9 +190,29 @@
   }
   .card-photo{
     width:100%; margin:0; max-width:none;
-    aspect-ratio:3/4; object-fit:cover; border-radius:0;
-    filter:saturate(.92) contrast(1.02);
+    aspect-ratio:3/4; object-fit:contain; background:#fff; border-radius:0;
     transition:transform .5s ease;
+  }
+  .btn-zoom{
+    position:absolute; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.94); color:var(--wine);
+    border:0; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5;
+    box-shadow:0 4px 10px rgba(0,0,0,.16);
+  }
+  .btn-zoom svg{width:15px; height:15px;}
+  .btn-zoom-card{top:8px; right:8px;}
+  .zoom-overlay{
+    position:fixed; inset:0; background:rgba(20,8,12,.92); z-index:300;
+    display:none; align-items:center; justify-content:center; padding:2.4rem;
+  }
+  .zoom-overlay.aberto{display:flex;}
+  .zoom-overlay img{max-width:100%; max-height:100%; object-fit:contain; box-shadow:0 20px 60px rgba(0,0,0,.4);}
+  .zoom-fechar{
+    position:fixed; top:1.1rem; right:1.1rem; width:44px; height:44px; border-radius:50%; background:#fff; color:var(--wine);
+    border:0; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:301;
+  }
+  @media (max-width:760px){
+    .zoom-overlay{padding:1rem;}
+    .zoom-fechar{top:.7rem; right:.7rem; width:40px; height:40px;}
   }
   .card:hover .card-photo{transform:scale(1.035);}
   .card h3{
@@ -365,9 +385,11 @@
   .cluster{flex:1; display:flex; gap:1.4rem; min-height:0; justify-content:center;}
   .cluster-item{position:relative; flex:1; max-width:17rem; display:flex; flex-direction:column; gap:.5rem; min-height:0; text-decoration:none;}
   .cluster-foto{
-    flex:1; min-height:0; border-radius:22% 22% 0 0; overflow:hidden; outline:1px solid var(--rose); outline-offset:8px;
+    position:relative; flex:1; min-height:0; border-radius:22% 22% 0 0; overflow:hidden; outline:1px solid var(--rose); outline-offset:8px;
+    background:#fff;
   }
-  .cluster-foto img{width:100%; height:100%; object-fit:cover; display:block;}
+  .cluster-foto img{width:100%; height:100%; object-fit:contain; display:block;}
+  .btn-zoom-cluster{top:6px; right:6px;}
   .cluster-legenda{display:flex; flex-direction:column; gap:1px; text-align:center;}
   .cluster-nome{font-family:"Cormorant Garamond",serif; font-style:italic; font-weight:600; font-size:1rem; color:var(--wine); line-height:1.1;}
   .cluster-preco{font-size:.78rem; color:var(--ink);}
@@ -389,8 +411,9 @@
   .novidades-setas{display:flex; gap:8px;}
   .novidades-seta{width:34px; height:34px; border-radius:50%; border:1px solid var(--rose); background:#fff; color:var(--wine); display:flex; align-items:center; justify-content:center; cursor:pointer;}
   .novidade-card{flex:0 0 220px; scroll-snap-align:start; background:#fff; display:flex; flex-direction:column; box-shadow:0 8px 24px rgba(89,12,42,.06); text-decoration:none; perspective:700px;}
-  .novidade-foto{position:relative; aspect-ratio:3/4; background:#efe3e5; overflow:hidden;}
-  .novidade-foto img{width:100%; height:100%; object-fit:cover;}
+  .novidade-foto{position:relative; aspect-ratio:3/4; background:#fff; overflow:hidden;}
+  .novidade-foto img{width:100%; height:100%; object-fit:contain;}
+  .btn-zoom-novidade{bottom:6px; right:6px;}
   .novidade-badge{position:absolute; top:10px; left:10px; background:var(--wine); color:#fff; font-size:.6rem; letter-spacing:.14em; padding:3px 7px;}
   .novidade-quando{position:absolute; top:10px; right:10px; background:#fff; color:var(--wine-deep); font-size:.64rem; padding:3px 7px;}
   .novidade-info{padding:.9rem 1rem 1.1rem; display:flex; flex-direction:column; gap:.2rem;}
@@ -549,14 +572,20 @@
         </div>
         <div class="cluster">
         <a class="cluster-item" href="#" data-wa-item="Blusa Ilza">
-          <div class="cluster-foto"><img src="carrossel/g0.jpg" alt="Blusa Ilza"></div>
+          <div class="cluster-foto">
+            <img src="carrossel/g0.jpg" alt="Blusa Ilza">
+            <button type="button" class="btn-zoom btn-zoom-cluster" aria-label="Ampliar foto" data-zoom-src="carrossel/g0.jpg" data-zoom-alt="Blusa Ilza" onclick="event.preventDefault();event.stopPropagation();window.abrirZoom(this.dataset.zoomSrc,this.dataset.zoomAlt);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg></button>
+          </div>
           <div class="cluster-legenda">
             <span class="cluster-nome">Blusa Ilza</span>
             <span class="cluster-preco">R$ 64,90 <span class="no-pix">Pix</span></span>
           </div>
         </a>
         <a class="cluster-item" href="#" data-wa-item="Blusa Mara">
-          <div class="cluster-foto"><img src="carrossel/g1.jpg" alt="Blusa Mara"></div>
+          <div class="cluster-foto">
+            <img src="carrossel/g1.jpg" alt="Blusa Mara">
+            <button type="button" class="btn-zoom btn-zoom-cluster" aria-label="Ampliar foto" data-zoom-src="carrossel/g1.jpg" data-zoom-alt="Blusa Mara" onclick="event.preventDefault();event.stopPropagation();window.abrirZoom(this.dataset.zoomSrc,this.dataset.zoomAlt);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg></button>
+          </div>
           <div class="cluster-legenda">
             <span class="cluster-nome">Blusa Mara</span>
             <span class="cluster-preco">R$ 109,90 <span class="no-pix">Pix</span></span>
@@ -571,14 +600,20 @@
         </div>
         <div class="cluster">
         <a class="cluster-item" href="#" data-wa-item="Bermuda Manoela">
-          <div class="cluster-foto"><img src="carrossel/g2.jpg" alt="Bermuda Manoela"></div>
+          <div class="cluster-foto">
+            <img src="carrossel/g2.jpg" alt="Bermuda Manoela">
+            <button type="button" class="btn-zoom btn-zoom-cluster" aria-label="Ampliar foto" data-zoom-src="carrossel/g2.jpg" data-zoom-alt="Bermuda Manoela" onclick="event.preventDefault();event.stopPropagation();window.abrirZoom(this.dataset.zoomSrc,this.dataset.zoomAlt);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg></button>
+          </div>
           <div class="cluster-legenda">
             <span class="cluster-nome">Bermuda Manoela</span>
             <span class="cluster-preco">R$ 139,90 <span class="no-pix">Pix</span></span>
           </div>
         </a>
         <a class="cluster-item" href="#" data-wa-item="Camisa Bianka">
-          <div class="cluster-foto"><img src="carrossel/g3.jpg" alt="Camisa Bianka"></div>
+          <div class="cluster-foto">
+            <img src="carrossel/g3.jpg" alt="Camisa Bianka">
+            <button type="button" class="btn-zoom btn-zoom-cluster" aria-label="Ampliar foto" data-zoom-src="carrossel/g3.jpg" data-zoom-alt="Camisa Bianka" onclick="event.preventDefault();event.stopPropagation();window.abrirZoom(this.dataset.zoomSrc,this.dataset.zoomAlt);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg></button>
+          </div>
           <div class="cluster-legenda">
             <span class="cluster-nome">Camisa Bianka</span>
             <span class="cluster-preco">R$ 129,90 <span class="no-pix">Pix</span></span>
@@ -593,14 +628,20 @@
         </div>
         <div class="cluster">
         <a class="cluster-item" href="#" data-wa-item="Bermuda Mariane">
-          <div class="cluster-foto"><img src="carrossel/g4.jpg" alt="Bermuda Mariane"></div>
+          <div class="cluster-foto">
+            <img src="carrossel/g4.jpg" alt="Bermuda Mariane">
+            <button type="button" class="btn-zoom btn-zoom-cluster" aria-label="Ampliar foto" data-zoom-src="carrossel/g4.jpg" data-zoom-alt="Bermuda Mariane" onclick="event.preventDefault();event.stopPropagation();window.abrirZoom(this.dataset.zoomSrc,this.dataset.zoomAlt);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg></button>
+          </div>
           <div class="cluster-legenda">
             <span class="cluster-nome">Bermuda Mariane</span>
             <span class="cluster-preco">R$ 169,90 <span class="no-pix">Pix</span></span>
           </div>
         </a>
         <a class="cluster-item" href="#" data-wa-item="Conjunto Antonia">
-          <div class="cluster-foto"><img src="carrossel/g5.jpg" alt="Conjunto Antonia"></div>
+          <div class="cluster-foto">
+            <img src="carrossel/g5.jpg" alt="Conjunto Antonia">
+            <button type="button" class="btn-zoom btn-zoom-cluster" aria-label="Ampliar foto" data-zoom-src="carrossel/g5.jpg" data-zoom-alt="Conjunto Antonia" onclick="event.preventDefault();event.stopPropagation();window.abrirZoom(this.dataset.zoomSrc,this.dataset.zoomAlt);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg></button>
+          </div>
           <div class="cluster-legenda">
             <span class="cluster-nome">Conjunto Antonia</span>
             <span class="cluster-preco">R$ 189,90 <span class="no-pix">Pix</span></span>
@@ -615,14 +656,20 @@
         </div>
         <div class="cluster">
         <a class="cluster-item" href="#" data-wa-item="Calça Melissa Ilhóis">
-          <div class="cluster-foto"><img src="carrossel/g6.jpg" alt="Calça Melissa Ilhóis"></div>
+          <div class="cluster-foto">
+            <img src="carrossel/g6.jpg" alt="Calça Melissa Ilhóis">
+            <button type="button" class="btn-zoom btn-zoom-cluster" aria-label="Ampliar foto" data-zoom-src="carrossel/g6.jpg" data-zoom-alt="Calça Melissa Ilhóis" onclick="event.preventDefault();event.stopPropagation();window.abrirZoom(this.dataset.zoomSrc,this.dataset.zoomAlt);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg></button>
+          </div>
           <div class="cluster-legenda">
             <span class="cluster-nome">Calça Melissa Ilhóis</span>
             <span class="cluster-preco">R$ 194,50 <span class="no-pix">Pix</span></span>
           </div>
         </a>
         <a class="cluster-item" href="#" data-wa-item="Bermuda Karen">
-          <div class="cluster-foto"><img src="carrossel/g7.jpg" alt="Bermuda Karen"></div>
+          <div class="cluster-foto">
+            <img src="carrossel/g7.jpg" alt="Bermuda Karen">
+            <button type="button" class="btn-zoom btn-zoom-cluster" aria-label="Ampliar foto" data-zoom-src="carrossel/g7.jpg" data-zoom-alt="Bermuda Karen" onclick="event.preventDefault();event.stopPropagation();window.abrirZoom(this.dataset.zoomSrc,this.dataset.zoomAlt);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg></button>
+          </div>
           <div class="cluster-legenda">
             <span class="cluster-nome">Bermuda Karen</span>
             <span class="cluster-preco">R$ 129,90 <span class="no-pix">Pix</span></span>
@@ -673,6 +720,13 @@
   <p class="faixa-veludo-texto">Peças pensadas para valorizar o corpo real — tamanhos do 42 ao 50, tecidos leves e cortes que caem bem em qualquer ocasião. Catálogo completo, compra combinada direto no WhatsApp.</p>
   <a class="btn-seguir-veludo" href="https://www.instagram.com/suaessenciamodaplus/" target="_blank" rel="noopener">Seguir @suaessenciamodaplus</a>
 </section>
+
+<div class="zoom-overlay" id="zoom-overlay">
+  <button type="button" class="zoom-fechar" id="zoom-fechar" aria-label="Fechar">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+  </button>
+  <img id="zoom-overlay-img" src="" alt="">
+</div>
 
 <footer>
   <div class="wrap">
@@ -881,6 +935,10 @@
     photoImg.hidden = true;
     card.appendChild(photoImg);
 
+    var btnZoomCard = criarBotaoZoom("btn-zoom-card", function(){ return photoImg.src; }, item.name);
+    btnZoomCard.hidden = true;
+    card.appendChild(btnZoomCard);
+
     var h3 = document.createElement("h3");
     h3.textContent = item.name;
     card.appendChild(h3);
@@ -958,8 +1016,8 @@
 
     function update(){
       var photoUrl = variantPhoto(state.variant);
-      if (photoUrl){ photoImg.src = photoUrl; photoImg.hidden = false; }
-      else { photoImg.hidden = true; }
+      if (photoUrl){ photoImg.src = photoUrl; photoImg.hidden = false; btnZoomCard.hidden = false; }
+      else { photoImg.hidden = true; btnZoomCard.hidden = true; }
 
       note.textContent = "Cor selecionada: " + state.variant.color;
 
@@ -1034,8 +1092,9 @@
         ? '<img src="' + n.photo + '" alt="">'
         : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:1rem;">[Foto da pe\u00e7a]</div>';
       var badge = (n.quando === "Hoje" || n.quando === "Ontem") ? '<span class="novidade-badge">NOVO</span>' : '';
+      var btnZoom = n.photo ? ('<button type="button" class="btn-zoom btn-zoom-novidade" aria-label="Ampliar foto" data-zoom-src="' + n.photo + '" data-zoom-alt="' + n.name.replace(/"/g, "&quot;") + '">' + ZOOM_ICON_SVG + '</button>') : '';
       return '<a class="novidade-card" href="#">' +
-        '<div class="novidade-foto">' + fotoHtml + badge +
+        '<div class="novidade-foto">' + fotoHtml + badge + btnZoom +
         '</div>' +
         '<div class="novidade-info">' +
         '<span class="novidade-cat">' + n.category + ' \u00b7 ' + (n.sizes || []).join("/") + '</span>' +
@@ -1045,6 +1104,12 @@
         '<span class="card-consulte">Consulte taxas e juros pelo WhatsApp</span>' +
         '</div></a>';
     }).join("");
+    trilho.querySelectorAll(".btn-zoom-novidade").forEach(function(btn){
+      btn.onclick = function(e){
+        e.preventDefault(); e.stopPropagation();
+        window.abrirZoom(btn.dataset.zoomSrc, btn.dataset.zoomAlt);
+      };
+    });
   }
 
 
@@ -1193,6 +1258,36 @@
     });
   }
 
+  var ZOOM_ICON_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"></path></svg>';
+  function wireZoomOverlay(){
+    var overlay = document.getElementById("zoom-overlay");
+    var img = document.getElementById("zoom-overlay-img");
+    var fechar = document.getElementById("zoom-fechar");
+    if (!overlay) return;
+    function fecharZoom(){ overlay.classList.remove("aberto"); img.src = ""; }
+    overlay.addEventListener("click", function(e){ if (e.target === overlay) fecharZoom(); });
+    fechar.onclick = fecharZoom;
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape") fecharZoom(); });
+    window.abrirZoom = function(src, alt){
+      if (!src) return;
+      img.src = src; img.alt = alt || "";
+      overlay.classList.add("aberto");
+    };
+  }
+  function criarBotaoZoom(classeExtra, getSrc, alt){
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn-zoom " + classeExtra;
+    btn.setAttribute("aria-label", "Ampliar foto");
+    btn.innerHTML = ZOOM_ICON_SVG;
+    btn.onclick = function(e){
+      e.preventDefault(); e.stopPropagation();
+      var src = getSrc();
+      if (src) window.abrirZoom(src, alt);
+    };
+    return btn;
+  }
+
   function wireCatnavFade(){
     var scrollEl = document.getElementById("catnav");
     var navEl = document.querySelector(".catnav");
@@ -1214,6 +1309,7 @@
   if (heroPhotoEl) { heroPhotoEl.src = HERO_BANNER_DATA_URI; heroPhotoEl.hidden = false; }
   wireScrollspy();
   wireCatnavFade();
+  wireZoomOverlay();
   renderVariedades();
   wireCarrossel();
   wireBusca();
