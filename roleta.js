@@ -16,7 +16,7 @@ var ROLETA_PREMIOS = [
 // Cole aqui a URL do seu Web App do Google Apps Script (veja LEIA-ME.md
 // para o passo a passo). Enquanto estiver vazio, a roleta funciona
 // normalmente, só não salva os cadastros em planilha nenhuma.
-var ROLETA_PLANILHA_URL = "";
+var ROLETA_PLANILHA_URL = "https://script.google.com/macros/s/AKfycbyX9qiHH_0dtXh597SyRhhBNlh-8SR74ZDnesFLju40xgroKIy2nKXJmJqKm4BCKAJ4/exec";
 
 // Número de WhatsApp da loja (só dígitos: código do país + DDD + número).
 var ROLETA_WHATSAPP_NUMBER = "5548998183017";
