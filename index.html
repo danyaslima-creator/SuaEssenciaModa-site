@@ -1367,7 +1367,21 @@
 })();
 </script>
 
-<script src="roleta.js" defer></script>
+<script>
+(function(){
+  // Roleta pausa durante a Black Friday (24/11 a 01/12) e volta sozinha depois, sem precisar mexer aqui.
+  var bfInicio = Date.parse("2026-11-24T00:00:00-03:00");
+  var bfFim = Date.parse("2026-12-01T00:00:00-03:00");
+  var agora = Date.now();
+  if (agora < bfInicio || agora >= bfFim) {
+    var s = document.createElement("script");
+    s.src = "roleta.js";
+    s.defer = true;
+    document.body.appendChild(s);
+  }
+})();
+</script>
 
-</body>
+    <script src="black-friday.js" defer></script>
+  </body>
 </html>
